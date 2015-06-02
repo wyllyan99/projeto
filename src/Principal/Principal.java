@@ -1,13 +1,18 @@
 
 package Principal;
 
-import java.io.ObjectInputStream.GetField;
-import java.util.ArrayList; 
-import java.util.List;
-import java.util.Scanner;
 import Cliente.Cliente;
 import Filme.Filme;
 import Filme.Locadora;
+import Filme.classificacao;
+import java.io.ObjectInputStream.GetField;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList; 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Scanner;
 
 public class Principal {
     static Locadora locadora = new Locadora();
@@ -20,10 +25,11 @@ public class Principal {
         do {
             System.out.println("===== LOCADORA DE FILME =====");
             System.out.println("1 - CADASTRAR CLIENTE");
-            System.out.println("2 - PESQUIZAR CLIENTE");
-            System.out.println("3 - APAGAR CLIENTE");
-            System.out.println("4 - CADASTRAR FILME");
-            System.out.println("5 - REALIZAR LOCAÇÃO");
+            System.out.println("2 - PESQUISAR CLIENTE");
+//            System.out.println("3 - APAGAR CLIENTE");
+            System.out.println("3 - CADASTRAR FILME");
+            System.out.println("4 - REALIZAR LOCAÇÃO");
+            
             opcao = entrada.nextInt();
             switch (opcao) {
                 case 1:
@@ -32,16 +38,14 @@ public class Principal {
                 case 2:
                     pesquisaCliente();
                     break;
+//                case 3:
+//                    excluiCliente();
+//                    break;
                 case 3:
-                    excluiCliente();
-                    break;
-                case 4:
                     cadastraFilme();
                     break;
-                case 5:
+                case 4:
                     locaFilme();
-                    default:
-                    System.out.println("Op222ao invalida.");
                     break;
             }            
         } while (menu == 0);}
@@ -65,7 +69,7 @@ public class Principal {
         cliente.setTelefone(entrada.nextLine());
 
         locadora.addCliente(cliente);
-
+        System.out.println ("Cadastro realizado com sucesso!\n\n\n");
     }
     public static void pesquisaCliente() {
         Scanner entrada = new Scanner(System.in);
@@ -78,7 +82,7 @@ public class Principal {
 
         for (Cliente cliente : locadora.getListaCliente()) {
             if (cliente.getCpf().equals(cpf)) {
-                System.out.println("Cliente: "+ cliente.getNome() + " | " + "CPF: " + cliente.getCpf());
+                System.out.println("Cliente: "+ cliente.getNome() + " | " + "CPF: " + cliente.getCpf()+"\n\n");
                 return;
             }
             else{
@@ -86,7 +90,7 @@ public class Principal {
             }
         }
     }
-    public static void excluiCliente() {
+/*    public static void excluiCliente() {
         Scanner entrada = new Scanner(System.in);
         String cpf;
         String decisao = null;
@@ -125,31 +129,32 @@ public class Principal {
         }
         
     }
-
+*/
     public static void cadastraFilme() {
         String titulo;
         int ano;
         double valor;
-        int cod;
+        int copias;
         Scanner entrada = new Scanner(System.in);
         System.out.println("===== CADASTRAR FILME =====");
+        
 
         System.out.println("TITULO: ");
-        //filme.setTitulo(entrada.nextLine());
         titulo = entrada.nextLine();
-//        System.out.println("GENERO: ");
-        //filme.setGenero(entrada.nextLine());
- //       genero = entrada.nextLine();
+
         System.out.println("ANO: ");
- //       filme.setAno(Integer.parseInt(entrada.nextLine()));
         ano = Integer.parseInt(entrada.nextLine());
- //       System.out.println("VALOR DA LOCACAO: ");
- //       filme.setValorLocacao(Double.parseDouble(entrada.nextLine()));
-        
+    
         System.out.println ("Codigo do Filme");
-        cod = Integer.parseInt(entrada.nextLine());//filme.setCodigo(Integer.parseInt(entrada.nextLine()));
-         Filme filme = new Filme(titulo,ano,cod);
+        int cod = Integer.parseInt(entrada.nextLine());
+        
+        System.out.println ("Quantidade de copias");
+        copias = Integer.parseInt(entrada.nextLine());
+        
+        classificacao filme = new classificacao(titulo,ano,cod,copias);
         locadora.addFilme(filme);
+        
+         System.out.println ("Cadastro realizado com sucesso!\n\n");
     }
     public static void locaFilme() {
          Scanner entrada = new Scanner(System.in);
@@ -158,57 +163,91 @@ public class Principal {
         Cliente cliente = new Cliente();
 
         System.out.println("===== LOCAR FILME =====\n");
-        System.out.println("DIGITE O NOME DO FILME DESEJADO: ");
-        nomeFilme = entrada.nextLine();
-
-        for (Filme filme : locadora.getListaFilme()) {
-            if (filme.getTitulo().equals(nomeFilme)) {
-                System.out.println(".::: A PESQUISA ENCONTROU :::." + 
+        for (classificacao filme : locadora.getListaFilme()) {
+                System.out.println(".::: LISTA DOS FILMES :::." + 
                 "\n TITULO: " + filme.getTitulo() + 
+                "\n GENERO: " + filme.getgenero()+ 
                 "\n ANO: " + filme.getAno());
+          
             }
-        }
-        if (!("FILME NAO ENCONTRADO".equals(nomeFilme))) {
-            String opcao = null ;
-            System.out.println("DESEJA REALMENTE LOCAR ESTE FILME? ");
-            opcao=entrada.nextLine();
-            switch (opcao) {
-                case "s":
-                case "S":
-                for (Cliente pcliente : locadora.getListaCliente())
-                    {
-                    System.out.println(".::: A PESQUISA ENCONTROU :::." + 
-                    "\n NOME: " + pcliente.getNome() + 
-                    "\n CPF: " + pcliente.getCpf() + 
-                    "\n ENDERECO: " + pcliente.getEndereco() + 
-                    "\n TELEFONE: " + pcliente.getTelefone());
-                    System.out.println("DIGITE O CPF DO CLIENTE: ");
-                    String cpfCliente = entrada.nextLine();
-                }
-               for (Cliente pcliente : locadora.getListaCliente())
-                {
-                    if (pcliente.getCpf().equals(pcliente.getCpf())) {
+            System.out.println("DIGITE O NOME DO FILME DESEJADO: ");
+            nomeFilme = entrada.nextLine();
+
+            for (classificacao filme : locadora.getListaFilme()) {
+                if (filme.getTitulo().equals(nomeFilme)) {
+                    
+                    System.out.println("qtdd: " +filme.getqtdd());
+                    
+                    if(filme.getqtdd()>0){
                         System.out.println(".::: A PESQUISA ENCONTROU :::." + 
-                        "\n NOME: " + pcliente.getNome() + 
-                        "\n CPF: " + pcliente.getCpf() + 
-                        "\n ENDERECO: " + pcliente.getEndereco() + 
-                        "\n TELEFONE: " + pcliente.getTelefone());
-                    }
+                        "\n TITULO: " + filme.getTitulo() + 
+                        "\n ANO: " + filme.getAno());
+                
+                        String opcao = null ;
+                        System.out.println("DESEJA REALMENTE LOCAR ESTE FILME? ");
+                        opcao=entrada.nextLine();
+                        switch (opcao) {
+                            case "s":
+                            case "S":
+                                for (Cliente pcliente : locadora.getListaCliente())
+                                {
+                                    System.out.println(".::: LISTA DOS CLIENTES :::." + 
+                                    "\n NOME: " + pcliente.getNome() + 
+                                    "\n CPF: " + pcliente.getCpf() + 
+                                    "\n ENDERECO: " + pcliente.getEndereco() + 
+                                    "\n TELEFONE: " + pcliente.getTelefone());
+                                    System.out.println("DIGITE O CPF DO CLIENTE: ");
+                                    String cpfCliente = entrada.nextLine();
+                                }
+                                for (Cliente pcliente : locadora.getListaCliente())
+                                {
+                                    if (pcliente.getCpf().equals(pcliente.getCpf())) {
+                                        System.out.println(".::: A PESQUISA ENCONTROU :::." + 
+                                        "\n NOME: " + pcliente.getNome() + 
+                                        "\n CPF: " + pcliente.getCpf() + 
+                                        "\n ENDERECO: " + pcliente.getEndereco() + 
+                                        "\n TELEFONE: " + pcliente.getTelefone());
+                        
+                                        Calendar calendar = new GregorianCalendar();
+                                        SimpleDateFormat out = new SimpleDateFormat(" \"dd/MM/yyyy\" HH:mm:ss  ");
+                                        Date date = new Date();
+                                        calendar.setTime(date);
+         
+                                        calendar.add(Calendar.DAY_OF_MONTH, 3);  
+                                        System.out.println("Data de devolução: ");
+                                        System.out.println(calendar.getTime());
+                                        System.out.println("Valor: "+filme.getValor()+"\n\n");
+                                        
+                                        filme.setqtdd(filme.getqtdd()-1);
+                                    }
+                                    else{
+                                        System.out.println("CLIENTE NAO ENCONTRADO.");
+                                    }
+                            
+                                }
+          
+                                 break;
+                                case "n":
+                                    System.out.println("Cliente não excluido");
+                                     break;
+                                case "N":
+                                     System.out.println("Cliente não excluido");
+                                     break;
+                                 default:
+                                     System.out.println("APERTE APENAS S PARA SIM OU N PARA NAO.");
+                                     break;
+                            }
+                        }
                     else{
-                        System.out.println("CLIENTE NAO ENCONTRADO.");
+                     System.out.println("\nNão tem DVD disponivel");
                     }
                 }
-            break;
-        case "n":
-            System.out.println("Cliente não excluido");
-            break;
-        case "N":
-            System.out.println("Cliente não excluido");
-            break;
-        default:
-            System.out.println("APERTE APENAS S PARA SIM OU N PARA NAO.");
-            break;
-        }
-    }
+                        
+                    else{
+                         System.out.println("\nFILME NAO ENCONTRADO");
+                }
+            }
+ 
+           
 }
 }// Criar todas as listas aqui e passar por parametro, outras classes, novas listas. 

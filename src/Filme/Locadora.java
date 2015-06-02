@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public class Locadora {
     private  ArrayList<Cliente> listaCliente = new ArrayList<Cliente>(); 
-    private  ArrayList<Filme> listaFilme = new ArrayList<Filme>();
+    private  ArrayList<classificacao> listaFilme = new ArrayList<classificacao>();
 
     public void addCliente (Cliente tCliente){
         
         this.listaCliente.add(tCliente);
     }
-    public void addFilme (Filme tFilme){
+    public void addFilme (classificacao tFilme){
             this.listaFilme.add(tFilme);
     }
     
@@ -25,7 +25,7 @@ public class Locadora {
        return listaCliente;
    }
    
-   public ArrayList<Filme> getListaFilme(){
+   public ArrayList<classificacao> getListaFilme(){
        
        return listaFilme;
    }
