@@ -85,13 +85,16 @@ public class Principal {
                 System.out.println("CLIENTE NAO ENCONTRADO.");
             }
         }
-        //System.out.println("CLIENTE NAO ENCONTRADO.");
     }
     public static void excluiCliente() {
         Scanner entrada = new Scanner(System.in);
         String cpf;
         String decisao = null;
-
+        System.out.println("Lista dos clientes");
+        for (Cliente cliente : locadora.getListaCliente()) {   
+            System.out.println("Cliente: "+ cliente.getNome() + " | " + "CPF: "+cliente.getCpf());
+        }
+        
         System.out.println("DIGITE O CPF: ");
         cpf = entrada.nextLine();
 
@@ -105,7 +108,14 @@ public class Principal {
         decisao = entrada.nextLine();
 
         if (decisao.equals("s")) {
-            locadora.removerCliente(cpf);
+            for (Cliente cliente : locadora.getListaCliente()) {
+            if (cliente.getCpf().equals(cpf)) {
+                
+                System.out.println("Cliente excluido : \n Cliente: "+ cliente.getNome() + " | " + "CPF: "+cliente.getCpf());
+                locadora.removerCliente(cliente);
+            }
+        }
+            
         }
         else if(decisao.equals("n")) {
             System.out.println("Cliente não apagado");
@@ -118,7 +128,6 @@ public class Principal {
 
     public static void cadastraFilme() {
         String titulo;
-//        String genero;
         int ano;
         double valor;
         int cod;
@@ -142,8 +151,8 @@ public class Principal {
          Filme filme = new Filme(titulo,ano,cod);
         locadora.addFilme(filme);
     }
-public static void locaFilme() {
-        Scanner entrada = new Scanner(System.in);
+    public static void locaFilme() {
+         Scanner entrada = new Scanner(System.in);
         String nomeFilme;
 
         Cliente cliente = new Cliente();
@@ -155,68 +164,51 @@ public static void locaFilme() {
         for (Filme filme : locadora.getListaFilme()) {
             if (filme.getTitulo().equals(nomeFilme)) {
                 System.out.println(".::: A PESQUISA ENCONTROU :::." + 
-            "\n TITULO: " + filme.getTitulo() + 
-            "\n ANO: " + filme.getAno());
-     //       "\n GENERO: " + filme.getGenero() + 
-     //       "\n VALOR: " + filme.getValorLocacao());
-
+                "\n TITULO: " + filme.getTitulo() + 
+                "\n ANO: " + filme.getAno());
             }
         }
-        //System.out.println("FILME NAO ENCONTRADO.");
-
         if (!("FILME NAO ENCONTRADO".equals(nomeFilme))) {
             String opcao = null ;
             System.out.println("DESEJA REALMENTE LOCAR ESTE FILME? ");
             opcao=entrada.nextLine();
-
-            
-
             switch (opcao) {
-            case "s":
-            case "S":
-                System.out.println("DIGITE O CPF DO CLIENTE: ");
-                String cpfCliente = entrada.nextLine();
-
-                //for(Cliente pcliente : cliente.listaCliente) 
-  
+                case "s":
+                case "S":
                 for (Cliente pcliente : locadora.getListaCliente())
-                {
-                    
-                    if (pcliente.getCpf().equals(pcliente.getCpf())) {
-                        System.out.println(".::: A PESQUISA ENCONTROU :::." + 
+                    {
+                    System.out.println(".::: A PESQUISA ENCONTROU :::." + 
                     "\n NOME: " + pcliente.getNome() + 
                     "\n CPF: " + pcliente.getCpf() + 
                     "\n ENDERECO: " + pcliente.getEndereco() + 
                     "\n TELEFONE: " + pcliente.getTelefone());
-                        return;
-                        
+                    System.out.println("DIGITE O CPF DO CLIENTE: ");
+                    String cpfCliente = entrada.nextLine();
+                }
+               for (Cliente pcliente : locadora.getListaCliente())
+                {
+                    if (pcliente.getCpf().equals(pcliente.getCpf())) {
+                        System.out.println(".::: A PESQUISA ENCONTROU :::." + 
+                        "\n NOME: " + pcliente.getNome() + 
+                        "\n CPF: " + pcliente.getCpf() + 
+                        "\n ENDERECO: " + pcliente.getEndereco() + 
+                        "\n TELEFONE: " + pcliente.getTelefone());
                     }
                     else{
-                System.out.println("CLIENTE NAO ENCONTRADO.");
-            }
-                //    if (!("CLIENTE NAO ENCONTRADO.".equals(cpfCliente))) {
-
-
-                  //  }
+                        System.out.println("CLIENTE NAO ENCONTRADO.");
+                    }
                 }
-              /*  System.out.println("CLIENTE NAO ENCONTRADO.");
-
-                if (!("CLIENTE NAO ENCONTRADO.".equals(cpfCliente))) {
-
-
-                }
-            */
-                break;
-
-            case "n":
-            case "N":
-
-
-            default:
-                System.out.println("APERTE APENAS S PARA SIM OU N PARA NAO.");
-                break;
-            }
-
+            break;
+        case "n":
+            System.out.println("Cliente não excluido");
+            break;
+        case "N":
+            System.out.println("Cliente não excluido");
+            break;
+        default:
+            System.out.println("APERTE APENAS S PARA SIM OU N PARA NAO.");
+            break;
         }
     }
+}
 }// Criar todas as listas aqui e passar por parametro, outras classes, novas listas. 

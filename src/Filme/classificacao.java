@@ -14,6 +14,10 @@ public class classificacao extends Filme{
     
     private double valor;
     private int cod;
+
+    public classificacao(String titulo, int ano, int codigo) {
+        this.valor ;
+    }
     
     
 

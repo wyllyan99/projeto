@@ -9,8 +9,7 @@ import Cliente.Cliente;
 import java.util.ArrayList;
 
 public class Locadora {
-    private  ArrayList<Cliente> listaCliente = new ArrayList<Cliente>();
-    
+    private  ArrayList<Cliente> listaCliente = new ArrayList<Cliente>(); 
     private  ArrayList<Filme> listaFilme = new ArrayList<Filme>();
 
     public void addCliente (Cliente tCliente){
