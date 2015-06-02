@@ -14,19 +14,21 @@ public class Filme {
 
     private String titulo;
     private int ano;
-    private String genero;
-    private double valorLocacao;
+//    private String genero;
+//    private double valorLocacao;
     private int codigo;
 
-    public Filme( String titulo, int ano, String genero, double valorLocacao, int codigo) {
+    public Filme( String titulo, int ano, int codigo) {
 
         this.titulo = titulo;
         this.ano = ano;
-        this.genero = genero;
-        this.valorLocacao = valorLocacao;
+  //      this.genero = genero;
+  //      this.valorLocacao = valorLocacao;
         this.codigo= codigo;
     }
 // Deixar toda a parte de baixo em outra classe, deixar nessa classe apenas o que é construtor. 
+
+    
 
 
     //Acoes ou Metodos (Funcoes)
@@ -52,7 +54,7 @@ public class Filme {
         listaFilme.add(filme);
     }
 */
-    public void locaFilme() {
+/*    public void locaFilme() {
 
         String nomeFilme;
 
@@ -115,7 +117,7 @@ public class Filme {
 
 
                 }
-            */
+            
                 break;
 
             case "n":
@@ -128,7 +130,7 @@ public class Filme {
             }
 
         }
-    }
+    }*/
 
 
     // Getters e Setters    
@@ -150,7 +152,7 @@ public class Filme {
         this.ano = ano;
     }
 
-    public String getGenero() {
+/*    public String getGenero() {
         return genero;
     }
 
@@ -165,5 +167,7 @@ public class Filme {
     public void setValorLocacao(double valorLocacao) {
         this.valorLocacao = valorLocacao;
     }
-
+     public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }*/
 }
